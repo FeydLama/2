@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тайна, что ведёт к сердцу</title>
+  <style>
+    /* Базовые стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #111;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 20px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 40px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .hint-box {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-left: 4px solid #0077cc;
+      border-radius: 8px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #eaf4ff;
+      color: #0077cc;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 14px;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      p, input, button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧩 Начни с загадки</h1>
+
+  <div class="section">
+    <p>Здесь начинается путь. Не всё так просто, как кажется — но ты ведь умная, правда?</p>
+  </div>
+
+  <div class="section hint-box">
+    <h2>Загадка</h2>
+    <p><em>Загадка какая то.</em></p>
+    <p><strong>Подсказка:</strong> Если не нужна, можно убрать</p>
+  </div>
+
+  <div class="section">
+    <label for="password"><strong>Ответ на загадку:</strong></label>
+    <input type="text" id="password" placeholder="Введи правильный ответ..." />
+    <button onclick="checkPassword()">Проверить</button>
+    <div id="result" class="result hidden"></div>
+  </div>
+
+  <div id="confession" class="section hidden">
+    <h2>💌</h2>
+    <p>
+      Если ты читаешь это... значит, ты справилась.  
+      Значит, ты не просто умная — ты внимательная.  
+      А ещё… ты мне действительно очень нравишься.  
+      Я не мог сказать это напрямую, поэтому спрятал чувства здесь.
+    </p>
+    <p>Хочешь узнать, что будет дальше?.. 😊</p>
+  </div>
+
+  <footer>
+    &copy; 2025 — маленький квест от большого сердца
+  </footer>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim().toLowerCase();
+      const resultBox = document.getElementById("result");
+      const confessionBox = document.getElementById("confession");
+
+      const correctAnswer = "ответ"; // <- Здесь вставь свой пароль!
+
+      if (input === correctAnswer) {
+        resultBox.classList.add("hidden");
+        confessionBox.classList.remove("hidden");
+      } else {
+        resultBox.textContent = "Неверно. Попробуй ещё.";
+        resultBox.classList.remove("hidden");
+        confessionBox.classList.add("hidden");
+      }
+    }
+  </script>
+
+</body>
+</html>

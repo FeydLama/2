@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Добро пожаловать</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100%;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      overscroll-behavior-y: none;
+      background: linear-gradient(to bottom, #fff, #f8f8f8);
+    }
+    body::-webkit-scrollbar { display: none; }
+    body {
+      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.8;
+      background-attachment: fixed;
+    }
+    .step {
+      scroll-snap-align: start;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      text-align: center;
+      position: relative;
+    }
+    h1 {
+      font-size: 32px;
+      color: #222;
+      margin: 20px;
+      letter-spacing: 0.4px;
+      animation: fadeIn 0.8s ease;
+    }
+    h2 {
+      font-size: 24px;
+      color: #333;
+      margin-top: 32px;
+      letter-spacing: 0.3px;
+      animation: fadeIn 0.8s ease;
+    }
+    p {
+      font-size: 17px;
+      margin-bottom: 16px;
+      animation: fadeIn 0.8s ease;
+    }
+    .highlight {
+      background-color: #e0f0ff;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .section {
+      padding: 20px;
+      animation: fadeIn 1s ease;
+    }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+    #emoji-area {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .emoji {
+      position: absolute;
+      font-size: 34px;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .falling {
+      animation: fallDown 1s forwards;
+    }
+    @keyframes fallDown {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(200px) scale(0.9);
+        opacity: 0;
+      }
+    }
+    #portal-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      z-index: 1001;
+      animation: pulse 2s infinite;
+    }
+    #portal {
+      font-size: 52px;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #puzzle-block {
+      background-color: #fefefe;
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 5px solid #0077cc;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      animation: fadeIn 0.8s ease;
+    }
+    #puzzle-block h2 {
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
+    }
+    #puzzle-block label {
+      font-weight: 600;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+    #puzzle-block input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+    #puzzle-block button {
+      padding: 10px 24px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      transition: background 0.3s;
+    }
+    #puzzle-block button:hover {
+      background-color: #005fa3;
+    }
+    .confession-animate {
+      animation: popIn 1s ease forwards;
+    }
+    @keyframes popIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    #step4 p {
+      font-size: 18px;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="emoji-area"></div>
+
+  <div class="step" id="step1">
+    <h1>Добро пожаловать в игру!</h1>
+    <p>Это не просто страница. Это начало чего-то... скрытого.<br>Следуй за словами.</p>
+  </div>
+
+  <div class="step" id="step2">
+    <h2>Шаг 1</h2>
+    <p>Иногда ответ не в том, что ты видишь. А в том, что ты <em>почти не замечаешь</em></span>.</p>
+  </div>
+
+  <div class="step" id="step3">
+    <div id="portal-wrapper">
+      <div id="portal">🌀</div>
+    </div>
+    <h2>Шаг 2</h2>
+    <p>Ты уже ближе, чем кажется. Оно охвачено пламенем. Найди его — и все тайны ты раскроешь.</p>
+  </div>
+
+  <div class="step hidden" id="step4">
+    <h4>💌</h4>
+    <p>Если ты читаешь это... Значит, ты прошла весь путь. Ты заметила детали. Ты не бросила на полпути. Ты дошла до конца.</p>
+
+    <p>А теперь я скажу тебе то, что не решался сказать в лицо. Я не мастер говорить прямо. Всё это — мой способ быть искренним.</p>
+    
+    <p>С самого начала ты была для меня особенной. Твоё присутствие — будто тихий огонь, который греет, но я боялся подойти ближе. Я думал, что ты не заметишь... но где-то глубоко надеялся, что ты почувствуешь.</p>
+    
+    <p>Ты мне нравишься. Не просто внешне. Не просто потому, что ты красивая. А потому что ты живая. Умная. Настоящая. Потому что с тобой хочется делиться тишиной. Потому что в тебе есть что-то, что не объяснить словами — и это сводит с ума.</p>
+    
+    <p>Всё, что ты прошла здесь — было частью меня. Моих мыслей, моих чувств. И теперь ты знаешь. Я не прошу ничего. Я просто хотел, чтобы ты знала.</p>
+    
+    <p>Но если ты хочешь... если ты хоть чуть-чуть чувствуешь то же — я рядом. Я открыт. И всё, что будет дальше — мы решим вместе.</p>  
+  </div>
+
+  <script>
+    const emojis = ["💣", "🎯", "🎁", "🪙", "💎", "❤️‍🔥"];
+    const correctEmoji = "❤️‍🔥";
+    const emojiArea = document.getElementById("emoji-area");
+    let allEmojis = [];
+
+    function createEmoji(emoji, delay = 0) {
+      const span = document.createElement("span");
+      span.className = "emoji";
+      span.textContent = emoji;
+
+      const portal = document.getElementById("portal");
+      const portalRect = portal.getBoundingClientRect();
+      const portalX = window.scrollX + portalRect.left + portalRect.width / 2 - 16;
+      const portalY = window.scrollY + portalRect.top + portalRect.height / 2 - 16;
+
+      span.style.left = `${portalX}px`;
+      span.style.top = `${portalY}px`;
+
+      let vx = (Math.random() - 0.5) * 6;
+      let vy = (Math.random() - 0.5) * 6;
+
+      function move() {
+        const rect = span.getBoundingClientRect();
+        let newX = rect.left + vx;
+        let newY = rect.top + vy;
+
+        if (newX <= 0 || newX + 32 >= window.innerWidth) vx = -vx;
+        if (newY <= 0 || newY + 32 >= window.innerHeight) vy = -vy;
+
+        span.style.left = `${rect.left + vx}px`;
+        span.style.top = `${rect.top + vy}px`;
+
+        if (!span.classList.contains("falling")) {
+          requestAnimationFrame(move);
+        }
+      }
+
+      span.addEventListener("click", () => {
+        if (emoji === correctEmoji) {
+          allEmojis.forEach(e => e.classList.add("falling"));
+
+          setTimeout(() => {
+            emojiArea.innerHTML = "";
+            document.getElementById("portal-wrapper").remove();
+
+            const step3 = document.getElementById("step3");
+            step3.innerHTML = `
+              <div class="section" id="puzzle-block">
+                <h2>🕵️‍♂️ Загадка</h2>
+                <p><em>Что за чувство у меня?</em></p>
+                <p><em>В жилах стынет кровь,</em></p>
+                <p><em>И кружится голова…</em></p>
+                <p><em>Это вдруг пришла …</em></p>
+                <label for=\"password\">Твой ответ:</label>
+                <input type=\"text\" id=\"password\" placeholder=\"Напиши ответ и жми!\" />
+                <button onclick=\"checkPassword()\">Проверить</button>
+                <div id=\"result\" class=\"result hidden\"></div>
+              </div>`;
+
+            step3.classList.remove("hidden");
+            window.scrollTo({ top: step3.offsetTop, behavior: "smooth" });
+          }, 1200);
+        } else {
+          span.classList.add("falling");
+          setTimeout(() => span.remove(), 1000);
+        }
+      });
+
+      emojiArea.appendChild(span);
+      allEmojis.push(span);
+      setTimeout(move, delay);
+    }
+
+    function launchEmojis() {
+      allEmojis = [];
+      setTimeout(() => createEmoji(correctEmoji), 200);
+      for (let i = 0; i < 14; i++) {
+        const delay = 300 + i * 150;
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        setTimeout(() => createEmoji(randomEmoji), delay);
+      }
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim().toLowerCase();
+      const resultBox = document.getElementById("result");
+      const puzzleBlock = document.getElementById("puzzle-block");
+      const step4 = document.getElementById("step4");
+      const correctAnswer = "любовь";
+      if (input === correctAnswer) {
+        puzzleBlock.classList.add("hidden");
+        resultBox.classList.add("hidden");
+        step4.classList.remove("hidden");
+        step4.classList.add("confession-animate");
+        step4.scrollIntoView({ behavior: "smooth" });
+      } else {
+        resultBox.textContent = "Неверный ответ. Попробуй ещё.";
+        resultBox.classList.remove("hidden");
+        step4.classList.add("hidden");
+        step4.classList.remove("confession-animate");
+      }
+    }
+
+    window.addEventListener("load", () => {
+      const step3 = document.getElementById("step3");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            launchEmojis();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.6 });
+      observer.observe(step3);
+    });
+  </script>
+</body>
+</html>
